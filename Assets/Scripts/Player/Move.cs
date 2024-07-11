@@ -14,8 +14,8 @@ public class Move : MonoBehaviour
     [SerializeField] private float velocityPower;
     
     [Header("Input Component")]
-    [SerializeField] private InputActionReference input;
-    private Vector2 moveInput;
+    [SerializeField] private InputDirection input;
+    private float moveInput;
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class Move : MonoBehaviour
 
     private void Update()
     {
-        moveInput = input.action.ReadValue<Vector2>();
+        moveInput = input.InputXDirectionValue();
     }
 
     private void FixedUpdate()
@@ -34,7 +34,7 @@ public class Move : MonoBehaviour
 
     private float TargetSpeed()
     {
-        return moveInput.x * moveSpeed;
+        return moveInput * moveSpeed;
     }
 
     private float SpeedDifferent()

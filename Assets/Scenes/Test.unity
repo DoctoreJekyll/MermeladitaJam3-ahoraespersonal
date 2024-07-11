@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 40576955}
   - component: {fileID: 40576956}
+  - component: {fileID: 40576957}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -184,6 +185,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &40576957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40576954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0784014f9325784996c4171941239a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputMove: {fileID: 5986158224799035270, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
 --- !u!1 &347805360
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,11 +666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd298a377dbbdf41a1e7b04b19131d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  accelerationValue: 3
-  deccelerationValue: 2
-  velocityPower: 0.8
-  input: {fileID: 5986158224799035270, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
+  moveSpeed: 9.5
+  accelerationValue: 13
+  deccelerationValue: 16
+  velocityPower: 0.96
+  input: {fileID: 40576957}
 --- !u!1 &1586674591
 GameObject:
   m_ObjectHideFlags: 0
