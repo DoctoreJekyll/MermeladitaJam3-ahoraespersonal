@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XInput;
 
 namespace Jugador.NewWaterPlayer
 {
@@ -9,30 +8,33 @@ namespace Jugador.NewWaterPlayer
         [Header("References")]
         private Rigidbody2D rb;
         private PlayerJump playerJump;
-    
+        private Dash dashComponent;
+
         [Header("Configuration")]
-        [SerializeField] private float fallMultiplier = 2.5f;//Cae más rápido después del salto
+        [SerializeField] private float fallMultiplier = 2.5f; // Cae más rápido después del salto
         [SerializeField] private float lowJumpDivide = 2f;
         [SerializeField] private float gravity;
         [SerializeField] private float fallLimit;
 
-        [Header("Better Jump Gravity")] 
+        [Header("Better Jump Gravity")]
         [SerializeField] private float setNormalGravity = 3f;
         [SerializeField] private float setLimitUpGravity = 10.8f;
         [SerializeField] private float setLaterLimitUpGravity = 9f;
         [SerializeField] private float setRbDrag = 0.25f;
-        
+
         [SerializeField] private float timePushingButton;
         [SerializeField] private float maxTimeToJump;
-    
+
         void Start()
         {
             playerJump = GetComponent<PlayerJump>();
             rb = GetComponent<Rigidbody2D>();
+            dashComponent = GetComponent<Dash>();
         }
 
-        [Header("Test wind velocity")] 
+        [Header("Test wind velocity")]
         [SerializeField] private float fallMaxVelocity;
+
         private void Update()
         {
             ClampUpVelocity();
@@ -40,19 +42,23 @@ namespace Jugador.NewWaterPlayer
 
         private void FixedUpdate()
         {
-            BetterJumpPerformed();
-            if (GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush())
+            if (!dashComponent.isDashing)
             {
-                timePushingButton += Time.deltaTime;
-            }
-            else
-            {
-                timePushingButton = 0;
-            }
-        
-            if (rb.velocity.y < fallLimit)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, fallLimit);
+                BetterJumpPerformed();
+
+                if ((GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush()))
+                {
+                    timePushingButton += Time.deltaTime;
+                }
+                else
+                {
+                    timePushingButton = 0;
+                }
+
+                if (rb.velocity.y < fallLimit)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, fallLimit);
+                }
             }
         }
 
@@ -72,62 +78,32 @@ namespace Jugador.NewWaterPlayer
             {
                 rb.gravityScale = gravity;
                 rb.drag = setRbDrag;
-                if (GamepadIsConnected())
+
+                if (rb.velocity.y < 0)
                 {
-                    if (rb.velocity.y < 0)
-                    {
-                        rb.gravityScale = gravity * fallMultiplier;
-                    }
-                    else if ((rb.velocity.y > 0 && !GamepadButtonSouthIsPush() && !KeyBoardButtonSpaceIsPush()) || timePushingButton > maxTimeToJump)
-                    {
-                        rb.gravityScale = gravity * (fallMultiplier / lowJumpDivide);
-                    }
+                    rb.gravityScale = gravity * fallMultiplier;
                 }
-                else
+                else if ((rb.velocity.y > 0 && !GamepadButtonSouthIsPush() && !KeyBoardButtonSpaceIsPush()) || timePushingButton > maxTimeToJump)
                 {
-                    if (rb.velocity.y < 0)
-                    {
-                        rb.gravityScale = gravity * fallMultiplier;
-                    }
-                    else if ((rb.velocity.y > 0 && !KeyBoardButtonSpaceIsPush()) || timePushingButton > maxTimeToJump)
-                    {
-                        rb.gravityScale = gravity * (fallMultiplier / lowJumpDivide);
-                    }
+                    rb.gravityScale = gravity * (fallMultiplier / lowJumpDivide);
                 }
             }
         }
-        
-        
-        
+
         private void ClampUpVelocity()
         {
             if (rb.velocity.y > fallMaxVelocity)
                 rb.velocity = new Vector2(rb.velocity.x, fallMaxVelocity);
         }
 
-        private bool GamepadIsConnected()
-        {
-            if (Gamepad.current != null)
-            {
-                if (Gamepad.all.Count > 0)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
         private bool GamepadButtonSouthIsPush()
         {
-            if (Gamepad.current != null)
-            {
-                return Gamepad.current.buttonSouth.isPressed;
-            }
-
-            return false;
+            return Gamepad.current != null && Gamepad.current.buttonSouth.isPressed;
         }
 
-        private bool KeyBoardButtonSpaceIsPush() => Keyboard.current.spaceKey.isPressed;
-    
+        private bool KeyBoardButtonSpaceIsPush()
+        {
+            return Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
+        }
     }
 }

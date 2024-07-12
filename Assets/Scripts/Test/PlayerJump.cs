@@ -7,6 +7,7 @@ namespace Jugador.NewWaterPlayer
     {
 
         private Rigidbody2D rb2d;
+        private Dash dash;
 
         [Header("Jump Stuffs")]
         [SerializeField] private float jumpForce;
@@ -29,6 +30,7 @@ namespace Jugador.NewWaterPlayer
         private void Start()
         {
             rb2d = GetComponent<Rigidbody2D>();
+            dash = GetComponent<Dash>();
         }
 
         private void Update()
@@ -49,7 +51,7 @@ namespace Jugador.NewWaterPlayer
 
         public void JumpPress()
         {
-            if (coyoteTime > 0f)
+            if (coyoteTime > 0f && dash.backFromDash)
             {
                 JumpMethod();
             }
@@ -64,6 +66,7 @@ namespace Jugador.NewWaterPlayer
         
         private void JumpMethod()
         {
+            Debug.Log("jumpmethod");
             if (!isOnFloor && !isJumping)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x,0f);
