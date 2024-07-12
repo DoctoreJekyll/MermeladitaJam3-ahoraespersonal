@@ -1,11 +1,10 @@
 
-using System;
 using Jugador.NewWaterPlayer;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Dash : MonoBehaviour
 {
-    [Header("Components")]
     private Rigidbody2D rb2d;
     [SerializeField] private InputDirection inputDirection;
     [SerializeField] private PlayerJump playerJump;
@@ -16,7 +15,7 @@ public class Dash : MonoBehaviour
     [Header("Dash values")]
     [SerializeField] private float dashForce;
     private bool canDash;
-    public bool isDashing; // Cambiado a público para acceso desde ImproveJump
+    public bool isDashing; // Ahora público para que PlayerJump lo pueda acceder
     private float dashWindow;
 
     private void Start()
@@ -26,14 +25,39 @@ public class Dash : MonoBehaviour
 
     public void DashPressed()
     {
-        if (canDash)
+        if (!buttonIsPushed)
         {
-            Dashing(inputDirection.Direction());
+            if (canDash)
+            {
+                Dashing(inputDirection.Direction());
+            }
         }
+    }
+
+    [Header("button test")]
+    public bool buttonIsPushed;
+    
+    private bool GamepadButtonSouthIsPush()
+    {
+        return Gamepad.current != null && Gamepad.current.buttonSouth.isPressed;
+    }
+
+    private bool KeyBoardButtonSpaceIsPush()
+    {
+        return Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
     }
 
     private void Update()
     {
+        if (GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush())
+        {
+            buttonIsPushed = true;
+        }
+        else
+        {
+            buttonIsPushed = false;
+        }
+        
         if (IsOnFloor())
         {
             canDash = true;
@@ -50,7 +74,6 @@ public class Dash : MonoBehaviour
 
     private void Dashing(Vector2 direction)
     {
-        backFromDash = false;
         isDashing = true;
         canDash = false;
         rb2d.velocity = Vector2.zero;
@@ -69,14 +92,11 @@ public class Dash : MonoBehaviour
             timeDashing += Time.deltaTime;
             if (timeDashing > maxtimeDash)
             {
-                backFromDash = true;
-                isDashing = false; // Dash finalizado
+                isDashing = false; // Finaliza el dash
                 timeDashing = 0;
             }
         }
     }
-
-    public bool backFromDash;
 
     private void CheckIfFallFromDash()
     {
@@ -86,8 +106,7 @@ public class Dash : MonoBehaviour
 
             if (returnToDash)
             {
-                backFromDash = true;
-                isDashing = false; // Dash finalizado
+                isDashing = false; // Finaliza el dash
             }
         }
     }

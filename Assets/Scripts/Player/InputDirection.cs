@@ -20,6 +20,7 @@ public class InputDirection : MonoBehaviour
     [Header("Dash")] 
     [SerializeField] private InputActionReference inputDash;
     [SerializeField] private UnityEvent dashPressEvent;
+    [SerializeField] private Dash dash;
     
     
     public float InputXDirectionValue()
@@ -67,8 +68,11 @@ public class InputDirection : MonoBehaviour
     {
         if (obj.performed)
         {
-            jumpPressEvent.Invoke();
-            letJump = true;
+            if (!dash.isDashing)
+            {
+                jumpPressEvent.Invoke();
+                letJump = true;
+            }
         }
         else if (obj.canceled)
         {
@@ -85,7 +89,7 @@ public class InputDirection : MonoBehaviour
 
     private void DisableDash()
     {
-        inputJump.action.performed -= DashAction;
+        inputDash.action.performed -= DashAction;
         inputDash.action.canceled -= DashAction;
     }
 
@@ -94,10 +98,6 @@ public class InputDirection : MonoBehaviour
         if (obj.performed)
         {
             dashPressEvent.Invoke();
-        }
-        else if (obj.canceled)
-        {
-            
         }
     }
 }

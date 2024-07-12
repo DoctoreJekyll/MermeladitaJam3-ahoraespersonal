@@ -22,8 +22,11 @@ namespace Jugador.NewWaterPlayer
         [SerializeField] private float setLaterLimitUpGravity = 9f;
         [SerializeField] private float setRbDrag = 0.25f;
 
-        [SerializeField] private float timePushingButton;
-        [SerializeField] private float maxTimeToJump;
+        [Header("Input Settings")]
+        [SerializeField] private float maxTimeToJump = 0.1f; // Tiempo máximo para considerar un salto prolongado
+
+        private float timePushingButton; // Tiempo transcurrido presionando el botón de salto prolongado
+        [SerializeField] private float fallMaxVelocity;
 
         void Start()
         {
@@ -32,9 +35,6 @@ namespace Jugador.NewWaterPlayer
             dashComponent = GetComponent<Dash>();
         }
 
-        [Header("Test wind velocity")]
-        [SerializeField] private float fallMaxVelocity;
-
         private void Update()
         {
             ClampUpVelocity();
@@ -42,23 +42,15 @@ namespace Jugador.NewWaterPlayer
 
         private void FixedUpdate()
         {
-            if (!dashComponent.isDashing)
+            BetterJumpPerformed();
+            
+            // Manejar la entrada del botón de salto prolongado
+            HandleExtendedJump();
+
+            // Limitar la velocidad de caída
+            if (rb.velocity.y < fallLimit)
             {
-                BetterJumpPerformed();
-
-                if ((GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush()))
-                {
-                    timePushingButton += Time.deltaTime;
-                }
-                else
-                {
-                    timePushingButton = 0;
-                }
-
-                if (rb.velocity.y < fallLimit)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x, fallLimit);
-                }
+                rb.velocity = new Vector2(rb.velocity.x, fallLimit);
             }
         }
 
@@ -79,21 +71,29 @@ namespace Jugador.NewWaterPlayer
                 rb.gravityScale = gravity;
                 rb.drag = setRbDrag;
 
+                // Aplicar la gravedad modificada según las condiciones de salto
                 if (rb.velocity.y < 0)
                 {
                     rb.gravityScale = gravity * fallMultiplier;
                 }
-                else if ((rb.velocity.y > 0 && !GamepadButtonSouthIsPush() && !KeyBoardButtonSpaceIsPush()) || timePushingButton > maxTimeToJump)
+                else if ((rb.velocity.y > 0 && !IsJumpInputActive()) || timePushingButton > maxTimeToJump)
                 {
                     rb.gravityScale = gravity * (fallMultiplier / lowJumpDivide);
                 }
             }
         }
 
-        private void ClampUpVelocity()
+        private void HandleExtendedJump()
         {
-            if (rb.velocity.y > fallMaxVelocity)
-                rb.velocity = new Vector2(rb.velocity.x, fallMaxVelocity);
+            // Solo aumentar el tiempo de presión del botón si no se está realizando un dash
+            if (!dashComponent.isDashing && (GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush()))
+            {
+                timePushingButton += Time.deltaTime;
+            }
+            else
+            {
+                timePushingButton = 0;
+            }
         }
 
         private bool GamepadButtonSouthIsPush()
@@ -105,5 +105,18 @@ namespace Jugador.NewWaterPlayer
         {
             return Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
         }
+
+        private bool IsJumpInputActive()
+        {
+            return GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush();
+        }
+
+        private void ClampUpVelocity()
+        {
+            if (rb.velocity.y > fallMaxVelocity)
+                rb.velocity = new Vector2(rb.velocity.x, fallMaxVelocity);
+        }
     }
 }
+
+

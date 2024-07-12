@@ -5,7 +5,6 @@ namespace Jugador.NewWaterPlayer
 {
     public class PlayerJump : MonoBehaviour
     {
-
         private Rigidbody2D rb2d;
         private Dash dash;
 
@@ -13,7 +12,7 @@ namespace Jugador.NewWaterPlayer
         [SerializeField] private float jumpForce;
         [SerializeField] private GameObject pointToCheckFloor;
         [SerializeField] private Vector2 boxCheckSize;
-        [SerializeField] private LayerMask floorLayer; 
+        [SerializeField] private LayerMask floorLayer;
         private bool isJumping;
         public bool isOnFloor;
         private bool canJump;
@@ -23,9 +22,8 @@ namespace Jugador.NewWaterPlayer
         public Vector2 fallCheck;
 
         [Header("Coyote Bro")]
-        [SerializeField]private float timeToDoCoyote;
-        [field: SerializeField]
-        public float coyoteTime { get; private set; }
+        [SerializeField] private float timeToDoCoyote;
+        [SerializeField] private float coyoteTime;
 
         private void Start()
         {
@@ -51,7 +49,7 @@ namespace Jugador.NewWaterPlayer
 
         public void JumpPress()
         {
-            if (coyoteTime > 0f && dash.backFromDash)
+            if (CanJump())
             {
                 JumpMethod();
             }
@@ -61,32 +59,20 @@ namespace Jugador.NewWaterPlayer
         {
             coyoteTime = 0f;
         }
-        
-        [SerializeField] private float fallMaxVelocity;
-        
+
         private void JumpMethod()
         {
-            Debug.Log("jumpmethod");
             if (!isOnFloor && !isJumping)
             {
-                rb2d.velocity = new Vector2(rb2d.velocity.x,0f);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                ClampUpVelocity();
                 isJumping = true;
             }
             else
             {
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                ClampUpVelocity();
                 isJumping = true;
             }
-
-        }
-
-        private void ClampUpVelocity()
-        {
-            if (rb2d.velocity.y > fallMaxVelocity)
-                rb2d.velocity = new Vector2(rb2d.velocity.x, fallMaxVelocity);
         }
 
         private void CoyoteTimeImprove()
@@ -99,7 +85,6 @@ namespace Jugador.NewWaterPlayer
             {
                 coyoteTime -= Time.deltaTime;
             }
-        
         }
 
         private void FallCheck()
@@ -115,44 +100,38 @@ namespace Jugador.NewWaterPlayer
                 bool overlapBox = Physics2D.OverlapBox(pointToCheckFloor.transform.position, this.fallCheck, 0, floorLayer);
                 if (overlapBox)
                 {
-                    FallingParticle();
                     isOnAir = false;
                     isJumping = false;
                 }
-
             }
         }
 
-        float timeTemp = 0;
         private void OnAirCalculate()
         {
-            if (isOnAir)
-            {
-                timeTemp += Time.deltaTime;
-            }
+            // Lógica adicional si es necesaria para el cálculo en el aire
         }
-        private void FallingParticle()
+
+        private bool CanJump()
         {
-            if (isOnAir)
-            {
-                if (timeTemp >= 1f)
-                {
-                    //waterFallParticle.Play();
-                    timeTemp = 0;
-                }
-                else
-                {
-                    //fallParticle.Play();
-                    timeTemp = 0;
-                }
-            }
+            return coyoteTime > 0f && !dash.isDashing && (GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush());
         }
-        
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawCube(pointToCheckFloor.transform.position, fallCheck);
         }
-    
+
+        private bool GamepadButtonSouthIsPush()
+        {
+            return Gamepad.current != null && Gamepad.current.buttonSouth.isPressed;
+        }
+
+        private bool KeyBoardButtonSpaceIsPush()
+        {
+            return Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
+        }
     }
 }
+
+
