@@ -1,4 +1,6 @@
 
+using System.Collections;
+using DG.Tweening;
 using Jugador.NewWaterPlayer;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +22,7 @@ public class Dash : MonoBehaviour
 
     private void Start()
     {
+        camera1 = Camera.main;
         rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -74,6 +77,7 @@ public class Dash : MonoBehaviour
 
     private void Dashing(Vector2 direction)
     {
+        StartCoroutine(WitchTime());
         isDashing = true;
         canDash = false;
         rb2d.velocity = Vector2.zero;
@@ -82,8 +86,18 @@ public class Dash : MonoBehaviour
         rb2d.velocity += dir.normalized * dashForce;
     }
 
+    private IEnumerator WitchTime()
+    {
+        Camera.main.transform.DOComplete();
+        camera1.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(0.05f);
+        Time.timeScale = 1;
+    }
+
     public float timeDashing;
     public float maxtimeDash;
+    private Camera camera1;
 
     private void DashTimeCount()
     {
