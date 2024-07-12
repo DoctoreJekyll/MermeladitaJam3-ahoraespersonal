@@ -891,7 +891,7 @@ GameObject:
   - component: {fileID: 638981179}
   - component: {fileID: 638981178}
   - component: {fileID: 638981177}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2265,7 +2265,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  letJump: 0
   inputDash: {fileID: -83642871708462089, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
   dashPressEvent:
     m_PersistentCalls:
@@ -2283,6 +2282,37 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dash: {fileID: 1461188794}
+  inputGrab: {fileID: -2379133336489903254, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
+  grabPressEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1461188795}
+        m_TargetAssemblyTypeName: WallGrab, Assembly-CSharp
+        m_MethodName: GrabInputPut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  grabReleaseEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1461188795}
+        m_TargetAssemblyTypeName: WallGrab, Assembly-CSharp
+        m_MethodName: GranInputRelease
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1046015159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2473,6 +2503,9 @@ MonoBehaviour:
   fallCheck: {x: 0.28, y: 0.3}
   timeToDoCoyote: 0.15
   coyoteTime: 0
+  canJumpTest: 0
+  wallJumpForce: 50
+  wallJumpDirection: {x: 1, y: 2}
 --- !u!114 &1461188789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2639,13 +2672,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad433235fd1f85d48941ac9873b80b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOnRightWall: 0
+  isOnLeftWall: 0
   onWall: 0
   rigthOffset: {x: 0.2, y: 0}
   leftOffset: {x: -0.23, y: 0}
   collisionRaidus: 0.1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
+  slideSpeed: 5
+  rb2d: {fileID: 1461188790}
+  improveJump: {fileID: 1461188793}
+  isOnGrab: 0
 --- !u!1 &1586674591
 GameObject:
   m_ObjectHideFlags: 0

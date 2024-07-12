@@ -15,12 +15,18 @@ public class InputDirection : MonoBehaviour
     [SerializeField] private InputActionReference inputJump;
     [SerializeField] private UnityEvent jumpPressEvent;
     [SerializeField] private UnityEvent jumpReleaseEvent;
-    [SerializeField] private bool letJump = false;
+    private bool letJump = false;
+
 
     [Header("Dash")] 
     [SerializeField] private InputActionReference inputDash;
     [SerializeField] private UnityEvent dashPressEvent;
     [SerializeField] private Dash dash;
+
+    [Header("Grab")] 
+    [SerializeField] private InputActionReference inputGrab;
+    [SerializeField] private UnityEvent grabPressEvent;
+    [SerializeField] private UnityEvent grabReleaseEvent;
     
     
     public float InputXDirectionValue()
@@ -44,12 +50,14 @@ public class InputDirection : MonoBehaviour
     {
         EnableJump();
         EnableDash();
+        EnableGrab();
     }
 
     private void OnDisable()
     {
         DisableJump();
         DisableDash();
+        DisableGrab();
     }
 
     private void EnableJump()
@@ -100,4 +108,29 @@ public class InputDirection : MonoBehaviour
             dashPressEvent.Invoke();
         }
     }
+
+    private void EnableGrab()
+    {
+        inputGrab.action.performed += GrabAction;
+        inputGrab.action.canceled += GrabAction;
+    }
+    private void DisableGrab()
+    {
+        inputGrab.action.performed -= GrabAction;
+        inputGrab.action.canceled -= GrabAction;
+    }
+
+    private void GrabAction(InputAction.CallbackContext obj)
+    {
+        if (obj.performed)
+        {
+            grabPressEvent.Invoke();
+        }
+        else if (obj.canceled)
+        {
+            grabReleaseEvent.Invoke();
+        }
+    }
+
+
 }

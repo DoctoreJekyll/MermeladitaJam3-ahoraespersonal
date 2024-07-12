@@ -25,15 +25,20 @@ namespace Jugador.NewWaterPlayer
         [SerializeField] private float timeToDoCoyote;
         [SerializeField] private float coyoteTime;
 
+        [Header("Grab Component")] private WallGrab grab;
+
         private void Start()
         {
             rb2d = GetComponent<Rigidbody2D>();
             dash = GetComponent<Dash>();
+            grab = GetComponent<WallGrab>();
         }
 
+        public bool canJumpTest;
         private void Update()
         {
             CoyoteTimeImprove();
+            canJumpTest = CanJump();
         }
 
         private void FixedUpdate()
@@ -49,10 +54,40 @@ namespace Jugador.NewWaterPlayer
 
         public void JumpPress()
         {
+            
+            if (grab.isOnGrab)
+            {
+                WallJump();
+            }
+            
             if (CanJump())
             {
                 JumpMethod();
             }
+        }
+        
+        [Header("Wall Jump Settings")]
+        [SerializeField] private float wallJumpForce = 10f;
+        [SerializeField] private Vector2 wallJumpDirection = new Vector2(1f, 1.5f);
+        
+        private void WallJump()
+        {
+            Debug.Log("wall jump working");
+    
+            // Calculamos la dirección del salto basándonos en la posición de la pared
+            Vector2 jumpDirection = new Vector2(
+                wallJumpDirection.x * (grab.isOnRightWall ? -1 : 1),
+                wallJumpDirection.y
+            ).normalized;
+    
+            Debug.Log($"Jump Direction: {jumpDirection}");
+    
+            // Ajustamos la velocidad del jugador y añadimos la fuerza del salto
+            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(jumpDirection * wallJumpForce, ForceMode2D.Impulse);
+    
+            isJumping = true;
+            grab.GranInputRelease();
         }
 
         public void JumpReleased()
@@ -62,7 +97,14 @@ namespace Jugador.NewWaterPlayer
 
         private void JumpMethod()
         {
-            if (!isOnFloor && !isJumping)
+            if ((!isOnFloor && !isJumping))
+            {
+                Debug.Log("jump if");
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
+                rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                isJumping = true;
+            }
+            else if (grab.isOnGrab)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -70,6 +112,8 @@ namespace Jugador.NewWaterPlayer
             }
             else
             {
+                Debug.Log("jump no if");
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
             }
@@ -81,6 +125,10 @@ namespace Jugador.NewWaterPlayer
             {
                 coyoteTime = timeToDoCoyote;
             }
+            else if (grab.isOnGrab)
+            {
+                coyoteTime = timeToDoCoyote;
+            }
             else
             {
                 coyoteTime -= Time.deltaTime;
@@ -89,7 +137,12 @@ namespace Jugador.NewWaterPlayer
 
         private void FallCheck()
         {
-            if (!isOnFloor)
+            if (!isOnFloor && grab.isOnGrab)
+            {
+                isOnAir = false;
+                
+            }
+            else if (!isOnFloor)
             {
                 isOnAir = true;
                 OnAirCalculate();
@@ -109,6 +162,7 @@ namespace Jugador.NewWaterPlayer
         private void OnAirCalculate()
         {
             // Lógica adicional si es necesaria para el cálculo en el aire
+            //Setear la caida aqui para que no sea superrapida
         }
 
         private bool CanJump()
