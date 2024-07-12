@@ -2442,6 +2442,7 @@ GameObject:
   - component: {fileID: 1461188788}
   - component: {fileID: 1461188793}
   - component: {fileID: 1461188794}
+  - component: {fileID: 1461188795}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2463,13 +2464,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 10
   pointToCheckFloor: {fileID: 1940633373}
-  boxCheckSize: {x: 0.25, y: 0.25}
+  boxCheckSize: {x: 0.2, y: 0.25}
   floorLayer:
     serializedVersion: 2
     m_Bits: 64
   isOnFloor: 0
   isOnAir: 0
-  fallCheck: {x: 0.35, y: 0.35}
+  fallCheck: {x: 0.28, y: 0.3}
   timeToDoCoyote: 0.15
   coyoteTime: 0
 --- !u!114 &1461188789
@@ -2626,6 +2627,25 @@ MonoBehaviour:
   shake: {fileID: 1356512224}
   timeDashing: 0
   maxtimeDash: 0.2
+--- !u!114 &1461188795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461188787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad433235fd1f85d48941ac9873b80b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onWall: 0
+  rigthOffset: {x: 0.2, y: 0}
+  leftOffset: {x: -0.23, y: 0}
+  collisionRaidus: 0.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1586674591
 GameObject:
   m_ObjectHideFlags: 0
