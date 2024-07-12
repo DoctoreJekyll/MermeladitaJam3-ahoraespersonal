@@ -7,7 +7,6 @@ namespace Jugador.NewWaterPlayer
     {
 
         private Rigidbody2D rb2d;
-        [SerializeField] private InputActionReference inputJump;
 
         [Header("Jump Stuffs")]
         [SerializeField] private float jumpForce;
@@ -25,7 +24,7 @@ namespace Jugador.NewWaterPlayer
         [Header("Coyote Bro")]
         [SerializeField]private float timeToDoCoyote;
         [field: SerializeField]
-        public float CoyoteTime { get; private set; }
+        public float coyoteTime { get; private set; }
 
         private void Start()
         {
@@ -35,16 +34,6 @@ namespace Jugador.NewWaterPlayer
         private void Update()
         {
             CoyoteTimeImprove();
-            
-            
-            float xRaw = Input.GetAxisRaw("Horizontal");
-            float yRaw = Input.GetAxisRaw("Vertical");
-            
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                if(xRaw != 0 || yRaw != 0)
-                    Dash(xRaw, yRaw);
-            }
         }
 
         private void FixedUpdate()
@@ -58,43 +47,17 @@ namespace Jugador.NewWaterPlayer
             isOnFloor = Physics2D.OverlapBox(pointToCheckFloor.transform.position, boxCheckSize, 0, floorLayer);
         }
 
-        private void OnEnable()
+        public void JumpPress()
         {
-            inputJump.action.performed += JumpAction;
-            inputJump.action.canceled += JumpAction;
-        }
-        
-        private void OnDisable()
-        {
-            inputJump.action.performed -= JumpAction;
-            inputJump.action.canceled -= JumpAction;
-        }
-        
-
-        private void JumpAction(InputAction.CallbackContext context)//Llamamos a este metodo dentro del componente input action del playermanager 
-        {
-            if (context.performed)
+            if (coyoteTime > 0f)
             {
-                if (CoyoteTime > 0f)
-                {
-                    JumpMethod();
-                }
-            }
-            
-            if (context.canceled)
-            {
-                CoyoteTime = 0f;
+                JumpMethod();
             }
         }
 
-        [Header("dash")]
-        [SerializeField]private float dashSpeed;
-        private void Dash(float x, float y)
+        public void JumpReleased()
         {
-            rb2d.velocity = Vector2.zero;
-            Vector2 dir = new Vector2(x, y);
-
-            rb2d.velocity += dir.normalized * dashSpeed;
+            coyoteTime = 0f;
         }
         
         [SerializeField] private float fallMaxVelocity;
@@ -127,11 +90,11 @@ namespace Jugador.NewWaterPlayer
         {
             if (isOnFloor)
             {
-                CoyoteTime = timeToDoCoyote;
+                coyoteTime = timeToDoCoyote;
             }
             else
             {
-                CoyoteTime -= Time.deltaTime;
+                coyoteTime -= Time.deltaTime;
             }
         
         }

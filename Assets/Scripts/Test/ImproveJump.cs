@@ -15,6 +15,12 @@ namespace Jugador.NewWaterPlayer
         [SerializeField] private float lowJumpDivide = 2f;
         [SerializeField] private float gravity;
         [SerializeField] private float fallLimit;
+
+        [Header("Better Jump Gravity")] 
+        [SerializeField] private float setNormalGravity = 3f;
+        [SerializeField] private float setLimitUpGravity = 10.8f;
+        [SerializeField] private float setLaterLimitUpGravity = 9f;
+        [SerializeField] private float setRbDrag = 0.25f;
         
         [SerializeField] private float timePushingButton;
         [SerializeField] private float maxTimeToJump;
@@ -54,18 +60,18 @@ namespace Jugador.NewWaterPlayer
         {
             if (playerJump.isOnFloor)
             {
-                rb.gravityScale = 3f;
+                rb.gravityScale = setNormalGravity;
                 rb.drag = 0;
 
-                if (rb.gravityScale > 10.8)
+                if (rb.gravityScale > setLimitUpGravity)
                 {
-                    rb.gravityScale = 9;
+                    rb.gravityScale = setLaterLimitUpGravity;
                 }
             }
             else
             {
                 rb.gravityScale = gravity;
-                rb.drag = 0.25f;
+                rb.drag = setRbDrag;
                 if (GamepadIsConnected())
                 {
                     if (rb.velocity.y < 0)
@@ -90,6 +96,8 @@ namespace Jugador.NewWaterPlayer
                 }
             }
         }
+        
+        
         
         private void ClampUpVelocity()
         {

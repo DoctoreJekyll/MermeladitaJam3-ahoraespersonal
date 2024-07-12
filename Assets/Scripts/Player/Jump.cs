@@ -85,7 +85,6 @@ public class Jump : MonoBehaviour
         {
             if (rb.velocity.y > 0 && isJumping)
             {
-                Debug.Log("release");
                 SetGravityScale(normalGravity * jumpCutMultiplier);
             }
         }

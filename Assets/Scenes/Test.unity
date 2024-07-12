@@ -199,22 +199,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputMove: {fileID: 5986158224799035270, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
   inputJump: {fileID: -55631639424800008, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
-  jumpEvent:
+  jumpPressEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1116410274}
-        m_TargetAssemblyTypeName: Jump, Assembly-CSharp
-        m_MethodName: JumpFunctionEvent
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  jumpReleaseEvent:
+    m_PersistentCalls:
+      m_Calls: []
   letJump: 0
+  dashInput: {fileID: 0}
 --- !u!1 &191853483
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,12 +2117,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputMove: {fileID: 5986158224799035270, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
   inputJump: {fileID: -55631639424800008, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
-  jumpEvent:
+  jumpPressEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Jump, Assembly-CSharp
-        m_MethodName: JumpFunctionEvent
+      - m_Target: {fileID: 1461188788}
+        m_TargetAssemblyTypeName: Jugador.NewWaterPlayer.PlayerJump, Assembly-CSharp
+        m_MethodName: JumpPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  jumpReleaseEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1461188788}
+        m_TargetAssemblyTypeName: Jugador.NewWaterPlayer.PlayerJump, Assembly-CSharp
+        m_MethodName: JumpReleased
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2141,6 +2148,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   letJump: 0
+  dashInput: {fileID: -83642871708462089, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
 --- !u!114 &1046015159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2355,6 +2363,10 @@ MonoBehaviour:
   lowJumpDivide: 1.5
   gravity: 1.8
   fallLimit: -30
+  setNormalGravity: 3
+  setLimitUpGravity: 10.8
+  setLaterLimitUpGravity: 9
+  setRbDrag: 0.25
   timePushingButton: 0
   maxTimeToJump: 0.75
   fallMaxVelocity: 16
@@ -2391,7 +2403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6593e77d7f37fcb4ab7d074f9c58369d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputJump: {fileID: -55631639424800008, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
   jumpForce: 10
   pointToCheckFloor: {fileID: 1940633373}
   boxCheckSize: {x: 0.25, y: 0.25}
@@ -2402,8 +2413,7 @@ MonoBehaviour:
   isOnAir: 0
   fallCheck: {x: 0.35, y: 0.35}
   timeToDoCoyote: 0.15
-  <CoyoteTime>k__BackingField: 0
-  dashSpeed: 8
+  <coyoteTime>k__BackingField: 0
   fallMaxVelocity: 16
 --- !u!114 &1461188789
 MonoBehaviour:
@@ -2528,6 +2538,10 @@ MonoBehaviour:
   lowJumpDivide: 2
   gravity: 1.8
   fallLimit: -30
+  setNormalGravity: 3
+  setLimitUpGravity: 10.8
+  setLaterLimitUpGravity: 9
+  setRbDrag: 0.25
   timePushingButton: 0
   maxTimeToJump: 0.75
   fallMaxVelocity: 16
