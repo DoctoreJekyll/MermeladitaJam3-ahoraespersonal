@@ -7,17 +7,18 @@ namespace Jugador.NewWaterPlayer
     {
 
         private Rigidbody2D rb2d;
+        [SerializeField] private InputActionReference inputJump;
 
         [Header("Jump Stuffs")]
         [SerializeField] private float jumpForce;
         [SerializeField] private GameObject pointToCheckFloor;
         [SerializeField] private Vector2 boxCheckSize;
-        [SerializeField] private LayerMask floorLayer;
+        [SerializeField] private LayerMask floorLayer; 
         private bool isJumping;
         public bool isOnFloor;
         private bool canJump;
 
-        [Header("Fall Suffs")]
+        [Header("Fall stuffs")]
         public bool isOnAir;
         public Vector2 fallCheck;
 
@@ -25,10 +26,6 @@ namespace Jugador.NewWaterPlayer
         [SerializeField]private float timeToDoCoyote;
         [field: SerializeField]
         public float CoyoteTime { get; private set; }
-
-        [Header("Particles")]
-        [SerializeField] private ParticleSystem fallParticle;
-        [SerializeField] private ParticleSystem waterFallParticle;
 
         private void Start()
         {
@@ -38,6 +35,16 @@ namespace Jugador.NewWaterPlayer
         private void Update()
         {
             CoyoteTimeImprove();
+            
+            
+            float xRaw = Input.GetAxisRaw("Horizontal");
+            float yRaw = Input.GetAxisRaw("Vertical");
+            
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if(xRaw != 0 || yRaw != 0)
+                    Dash(xRaw, yRaw);
+            }
         }
 
         private void FixedUpdate()
@@ -50,9 +57,21 @@ namespace Jugador.NewWaterPlayer
         {
             isOnFloor = Physics2D.OverlapBox(pointToCheckFloor.transform.position, boxCheckSize, 0, floorLayer);
         }
+
+        private void OnEnable()
+        {
+            inputJump.action.performed += JumpAction;
+            inputJump.action.canceled += JumpAction;
+        }
+        
+        private void OnDisable()
+        {
+            inputJump.action.performed -= JumpAction;
+            inputJump.action.canceled -= JumpAction;
+        }
         
 
-        public void JumpAction(InputAction.CallbackContext context)//Llamamos a este metodo dentro del componente input action del playermanager 
+        private void JumpAction(InputAction.CallbackContext context)//Llamamos a este metodo dentro del componente input action del playermanager 
         {
             if (context.performed)
             {
@@ -68,10 +87,19 @@ namespace Jugador.NewWaterPlayer
             }
         }
 
-        [Header("Test velocity control on wind")]
+        [Header("dash")]
+        [SerializeField]private float dashSpeed;
+        private void Dash(float x, float y)
+        {
+            rb2d.velocity = Vector2.zero;
+            Vector2 dir = new Vector2(x, y);
+
+            rb2d.velocity += dir.normalized * dashSpeed;
+        }
+        
         [SerializeField] private float fallMaxVelocity;
         
-        private void JumpMethod()//En el primer if detecto si no está en el suelo para saltar pero por el coyote time, aunque no ests en el suelo tienes una ventana para saltar
+        private void JumpMethod()
         {
             if (!isOnFloor && !isJumping)
             {
@@ -95,7 +123,7 @@ namespace Jugador.NewWaterPlayer
                 rb2d.velocity = new Vector2(rb2d.velocity.x, fallMaxVelocity);
         }
 
-        private void CoyoteTimeImprove()//Control del tiempo para generar el efecto coyote
+        private void CoyoteTimeImprove()
         {
             if (isOnFloor)
             {
@@ -108,7 +136,7 @@ namespace Jugador.NewWaterPlayer
         
         }
 
-        private void FallCheck()//Método para hacer el check al tocar el suelo
+        private void FallCheck()
         {
             if (!isOnFloor)
             {
@@ -143,12 +171,12 @@ namespace Jugador.NewWaterPlayer
             {
                 if (timeTemp >= 1f)
                 {
-                    waterFallParticle.Play();
+                    //waterFallParticle.Play();
                     timeTemp = 0;
                 }
                 else
                 {
-                    fallParticle.Play();
+                    //fallParticle.Play();
                     timeTemp = 0;
                 }
             }

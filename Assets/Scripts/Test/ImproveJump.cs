@@ -15,9 +15,7 @@ namespace Jugador.NewWaterPlayer
         [SerializeField] private float lowJumpDivide = 2f;
         [SerializeField] private float gravity;
         [SerializeField] private float fallLimit;
-    
-        public bool isOnWindArea;
-        public bool isInEspecialTile;
+        
         [SerializeField] private float timePushingButton;
         [SerializeField] private float maxTimeToJump;
     
@@ -25,7 +23,6 @@ namespace Jugador.NewWaterPlayer
         {
             playerJump = GetComponent<PlayerJump>();
             rb = GetComponent<Rigidbody2D>();
-            isOnWindArea = false;
         }
 
         [Header("Test wind velocity")] 
@@ -102,9 +99,9 @@ namespace Jugador.NewWaterPlayer
 
         private bool GamepadIsConnected()
         {
-            if (XInputController.current != null)
+            if (Gamepad.current != null)
             {
-                if (XInputController.all.Count > 0)
+                if (Gamepad.all.Count > 0)
                 {
                     return true;
                 }
@@ -114,9 +111,9 @@ namespace Jugador.NewWaterPlayer
         }
         private bool GamepadButtonSouthIsPush()
         {
-            if (XInputController.current != null)
+            if (Gamepad.current != null)
             {
-                return XInputController.current.buttonSouth.isPressed;
+                return Gamepad.current.buttonSouth.isPressed;
             }
 
             return false;

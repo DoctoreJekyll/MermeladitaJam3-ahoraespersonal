@@ -2199,13 +2199,14 @@ GameObject:
   - component: {fileID: 1116410272}
   - component: {fileID: 1116410273}
   - component: {fileID: 1116410274}
+  - component: {fileID: 1116410275}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1116410270
 Transform:
   m_ObjectHideFlags: 0
@@ -2338,6 +2339,27 @@ MonoBehaviour:
   jumpInputRelease: 0
   maxFallSpeed: 5
   isFalling: 0
+--- !u!114 &1116410275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116410268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ac3c563ef641842a88237eefc1e75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallMultiplier: 6
+  lowJumpDivide: 1.5
+  gravity: 1.8
+  fallLimit: -30
+  isOnWindArea: 0
+  isInEspecialTile: 0
+  timePushingButton: 0
+  maxTimeToJump: 0.75
+  fallMaxVelocity: 16
 --- !u!1 &1461188787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,6 +2373,7 @@ GameObject:
   - component: {fileID: 1461188790}
   - component: {fileID: 1461188789}
   - component: {fileID: 1461188788}
+  - component: {fileID: 1461188793}
   m_Layer: 0
   m_Name: Player (1)
   m_TagString: Untagged
@@ -2370,20 +2393,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6593e77d7f37fcb4ab7d074f9c58369d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 0
+  jumpForce: 10
   pointToCheckFloor: {fileID: 1940633373}
-  boxCheckSize: {x: 0, y: 0}
+  boxCheckSize: {x: 0.25, y: 0.25}
   floorLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  isJumping: 0
   isOnFloor: 0
   isOnAir: 0
-  fallCheck: {x: 0, y: 0}
-  timeToDoCoyote: 0
+  fallCheck: {x: 0.35, y: 0.35}
+  timeToDoCoyote: 0.15
   <CoyoteTime>k__BackingField: 0
-  fallParticle: {fileID: 0}
-  waterFallParticle: {fileID: 0}
-  fallMaxVelocity: 0
+  inputJump: {fileID: -55631639424800008, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
+  fallMaxVelocity: 16
 --- !u!114 &1461188789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2427,7 +2450,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1461188791
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2482,7 +2505,7 @@ Transform:
   m_GameObject: {fileID: 1461188787}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.46000004, y: -3.6399994, z: 0}
+  m_LocalPosition: {x: 0.46, y: -3.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2491,6 +2514,27 @@ Transform:
   - {fileID: 1940633374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1461188793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461188787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ac3c563ef641842a88237eefc1e75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallMultiplier: 6
+  lowJumpDivide: 2
+  gravity: 1.8
+  fallLimit: -30
+  isOnWindArea: 0
+  isInEspecialTile: 0
+  timePushingButton: 0
+  maxTimeToJump: 0.75
+  fallMaxVelocity: 16
 --- !u!1 &1586674591
 GameObject:
   m_ObjectHideFlags: 0
