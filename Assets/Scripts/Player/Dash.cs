@@ -22,7 +22,6 @@ public class Dash : MonoBehaviour
 
     private void Start()
     {
-        camera1 = Camera.main;
         rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -75,6 +74,8 @@ public class Dash : MonoBehaviour
         return playerJump.isOnFloor;
     }
 
+    [Header("Shake component")]
+    [SerializeField] private CinemachineScreenShake shake;
     private void Dashing(Vector2 direction)
     {
         StartCoroutine(WitchTime());
@@ -88,16 +89,14 @@ public class Dash : MonoBehaviour
 
     private IEnumerator WitchTime()
     {
-        Camera.main.transform.DOComplete();
-        camera1.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
         Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(0.05f);
+        shake.TriggerShake();
+        yield return new WaitForSecondsRealtime(0.035f);
         Time.timeScale = 1;
     }
 
     public float timeDashing;
     public float maxtimeDash;
-    private Camera camera1;
 
     private void DashTimeCount()
     {
