@@ -2355,8 +2355,6 @@ MonoBehaviour:
   lowJumpDivide: 1.5
   gravity: 1.8
   fallLimit: -30
-  isOnWindArea: 0
-  isInEspecialTile: 0
   timePushingButton: 0
   maxTimeToJump: 0.75
   fallMaxVelocity: 16
@@ -2393,19 +2391,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6593e77d7f37fcb4ab7d074f9c58369d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputJump: {fileID: -55631639424800008, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
   jumpForce: 10
   pointToCheckFloor: {fileID: 1940633373}
   boxCheckSize: {x: 0.25, y: 0.25}
   floorLayer:
     serializedVersion: 2
     m_Bits: 64
-  isJumping: 0
   isOnFloor: 0
   isOnAir: 0
   fallCheck: {x: 0.35, y: 0.35}
   timeToDoCoyote: 0.15
   <CoyoteTime>k__BackingField: 0
-  inputJump: {fileID: -55631639424800008, guid: edd542ee36127e14f9d314c9a8195c64, type: 3}
+  dashSpeed: 8
   fallMaxVelocity: 16
 --- !u!114 &1461188789
 MonoBehaviour:
@@ -2530,8 +2528,6 @@ MonoBehaviour:
   lowJumpDivide: 2
   gravity: 1.8
   fallLimit: -30
-  isOnWindArea: 0
-  isInEspecialTile: 0
   timePushingButton: 0
   maxTimeToJump: 0.75
   fallMaxVelocity: 16
