@@ -53,6 +53,7 @@ public class WallGrab : MonoBehaviour
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, direction.InputYDirectionValue());
         }
+
     }
 
     private bool grab;
