@@ -32,14 +32,8 @@ public class SeeMove : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(RechargeLevel());
+            DeadManager.Instance.ODeath();
         }
     }
-
-    private IEnumerator RechargeLevel()
-    {
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(0.75f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    
 }
