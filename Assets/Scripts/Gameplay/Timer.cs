@@ -1,6 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class Timer : MonoBehaviour
                 Debug.Log("Tiempo terminado!");
                 timeRemaining = 0;
                 timerIsRunning = false;
-                
+                StartCoroutine(RechargeLevel());
             }
         }
     }
@@ -40,6 +41,13 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60); 
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
-        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeText.text = $"{minutes:00}:{seconds:00}";
+    }
+    
+    private IEnumerator RechargeLevel()
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(0.75f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
