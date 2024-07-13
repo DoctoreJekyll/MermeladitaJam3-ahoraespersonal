@@ -4686,7 +4686,7 @@ GameObject:
   - component: {fileID: 1476065634}
   - component: {fileID: 1476065633}
   - component: {fileID: 1476065632}
-  - component: {fileID: 1476065631}
+  - component: {fileID: 1476065636}
   m_Layer: 5
   m_Name: TimerUI
   m_TagString: Untagged
@@ -4694,21 +4694,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1476065631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476065630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34618960812c204395bf0cf8d8c0833, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paperTexts: {fileID: 1445965116}
-  allPapersInScene: []
-  totalPapers: 0
 --- !u!114 &1476065632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4792,6 +4777,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1476065636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476065630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b5cd29fc18444429bd1a464bb2e561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeRemaining: 180
+  timeText: {fileID: 1445965116}
 --- !u!1 &1479738730
 GameObject:
   m_ObjectHideFlags: 0
