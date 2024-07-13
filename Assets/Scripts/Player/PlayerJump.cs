@@ -57,6 +57,7 @@ namespace Jugador.NewWaterPlayer
             
             if (grab.isOnGrab)
             {
+                Debug.Log("walljump");
                 WallJump();
             }
             
@@ -65,31 +66,27 @@ namespace Jugador.NewWaterPlayer
                 JumpMethod();
             }
         }
-        
-        [Header("Wall Jump Settings")]
-        [SerializeField] private float wallJumpForce = 10f;
-        [SerializeField] private Vector2 wallJumpDirection = new Vector2(1f, 1.5f);
-        
+
+        public Vector2 wallJumpForce = new Vector2();
+        public float forcevale;
         private void WallJump()
         {
-            Debug.Log("wall jump working");
-    
-            // Calculamos la dirección del salto basándonos en la posición de la pared
-            Vector2 jumpDirection = new Vector2(
-                wallJumpDirection.x * (grab.isOnRightWall ? -1 : 1),
-                wallJumpDirection.y
-            ).normalized;
-    
-            Debug.Log($"Jump Direction: {jumpDirection}");
-    
-            // Ajustamos la velocidad del jugador y añadimos la fuerza del salto
-            rb2d.velocity = Vector2.zero;
-            rb2d.AddForce(jumpDirection * wallJumpForce, ForceMode2D.Impulse);
-    
-            isJumping = true;
-            grab.GranInputRelease();
-        }
+            // Determina la dirección del salto (izquierda o derecha)
+            int dir = grab.isOnRightWall ? -1 : 1; // -1 para derecha, 1 para izquierda
 
+            // Calcula la fuerza de salto
+            Vector2 jumpForce = new Vector2(wallJumpForce.x * dir, wallJumpForce.y);
+
+            // Asegura que el jugador alcance la fuerza de salto deseada o mayor
+            if (rb2d.velocity.y < 0)
+            {
+                jumpForce.y = Mathf.Max(jumpForce.y, -rb2d.velocity.y);
+            }
+
+            // Aplica la fuerza como un impulso para garantizar que se aplique instantáneamente
+            rb2d.AddForce(jumpForce * forcevale, ForceMode2D.Impulse);
+        }
+        
         public void JumpReleased()
         {
             coyoteTime = 0f;

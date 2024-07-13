@@ -2504,8 +2504,8 @@ MonoBehaviour:
   timeToDoCoyote: 0.15
   coyoteTime: 0
   canJumpTest: 0
-  wallJumpForce: 50
-  wallJumpDirection: {x: 1, y: 2}
+  wallJumpForce: {x: 1, y: 2}
+  forcevale: 5
 --- !u!114 &1461188789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2675,15 +2675,17 @@ MonoBehaviour:
   isOnRightWall: 0
   isOnLeftWall: 0
   onWall: 0
-  rigthOffset: {x: 0.2, y: 0}
-  leftOffset: {x: -0.23, y: 0}
-  collisionRaidus: 0.1
+  rigthOffset: {x: 0.17, y: 0}
+  leftOffset: {x: -0.2, y: 0}
+  collisionRaidus: 0.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
   slideSpeed: 5
   rb2d: {fileID: 1461188790}
   improveJump: {fileID: 1461188793}
+  move: {fileID: 1461188789}
+  direction: {fileID: 1046015158}
   isOnGrab: 0
 --- !u!1 &1586674591
 GameObject:

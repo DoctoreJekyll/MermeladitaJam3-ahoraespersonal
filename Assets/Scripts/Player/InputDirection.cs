@@ -36,6 +36,13 @@ public class InputDirection : MonoBehaviour
         return xValue;
     }
 
+    public float InputYDirectionValue()
+    {
+        direction = inputMove.action.ReadValue<Vector2>();
+        float yValue = direction.y;
+        return yValue;
+    }
+
     public Vector2 Direction()
     {
         return inputMove.action.ReadValue<Vector2>();

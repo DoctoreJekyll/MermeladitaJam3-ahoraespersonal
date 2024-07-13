@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Jugador.NewWaterPlayer;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class WallGrab : MonoBehaviour
     [Header("Extra Components")] 
     [SerializeField] private Rigidbody2D rb2d;
     [SerializeField] private ImproveJump improveJump;
+    [SerializeField] private Move move;
+    [SerializeField] private InputDirection direction;
 
     private float actualGravityScale;
 
@@ -45,6 +48,11 @@ public class WallGrab : MonoBehaviour
         }
         
         Grab();
+
+        if (onWall && grab)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, direction.InputYDirectionValue());
+        }
     }
 
     private bool grab;
@@ -63,6 +71,7 @@ public class WallGrab : MonoBehaviour
     {
         if (onWall && grab)
         {
+            move.enabled = false;
             improveJump.enabled = false;
             rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
             rb2d.gravityScale = 0;
@@ -70,10 +79,17 @@ public class WallGrab : MonoBehaviour
         }
         else
         {
-            improveJump.enabled = true;
             rb2d.gravityScale = actualGravityScale;
             isOnGrab = false;
+            StartCoroutine(ReturnValuesCorroutine());
         }
+    }
+
+    private IEnumerator ReturnValuesCorroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        move.enabled = true;
+        improveJump.enabled = true;
     }
 
     private void WallSlide()
