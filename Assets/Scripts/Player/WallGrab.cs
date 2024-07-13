@@ -36,6 +36,7 @@ public class WallGrab : MonoBehaviour
 
     private void Start()
     {
+        test = StartCoroutine(TimeCorroutine());
         playerJump = GetComponent<PlayerJump>();
         flip = GetComponent<Flip>();
         actualGravityScale = rb2d.gravityScale;
@@ -113,7 +114,6 @@ public class WallGrab : MonoBehaviour
         
         if (playerJump.isOnFloor)
         {
-            Debug.Log("reset grab");
             StopCoroutine(test);
         }
 
@@ -137,7 +137,7 @@ public class WallGrab : MonoBehaviour
     private Coroutine test;
     public void GrabInputPut()
     {
-        FallFromGrab();
+        //FallFromGrab();
         grab = true;
     }
 

@@ -29,5 +29,10 @@ public class Projectil : MonoBehaviour
             rb2d.AddForce(new Vector2(-0.5f,0.5f) * 1000);
         }
     }
+
+    private void StartKnockUpCorroutine()
+    {
+        
+    }
     
 }
