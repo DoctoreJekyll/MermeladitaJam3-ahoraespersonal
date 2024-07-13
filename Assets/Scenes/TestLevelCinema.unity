@@ -2503,9 +2503,10 @@ MonoBehaviour:
   fallCheck: {x: 0.28, y: 0.3}
   timeToDoCoyote: 0.15
   coyoteTime: 0
+  isgrabtest: 0
   canJumpTest: 0
   wallJumpForce: {x: 1, y: 2}
-  forcevale: 5
+  forcevale: 10
 --- !u!114 &1461188789
 MonoBehaviour:
   m_ObjectHideFlags: 0

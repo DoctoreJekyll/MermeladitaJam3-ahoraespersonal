@@ -33,12 +33,9 @@ namespace Jugador.NewWaterPlayer
             dash = GetComponent<Dash>();
             grab = GetComponent<WallGrab>();
         }
-
-        public bool canJumpTest;
         private void Update()
         {
             CoyoteTimeImprove();
-            canJumpTest = CanJump();
         }
 
         private void FixedUpdate()
@@ -57,7 +54,6 @@ namespace Jugador.NewWaterPlayer
             
             if (grab.isOnGrab)
             {
-                Debug.Log("walljump");
                 WallJump();
             }
             
@@ -69,22 +65,20 @@ namespace Jugador.NewWaterPlayer
 
         public Vector2 wallJumpForce = new Vector2();
         public float forcevale;
+        
+        //TEMPORAL
         private void WallJump()
         {
-            // Determina la dirección del salto (izquierda o derecha)
+            Vector2 force = new Vector2(wallJumpForce.x, wallJumpForce.y);
+
             int dir = grab.isOnRightWall ? -1 : 1; // -1 para derecha, 1 para izquierda
 
-            // Calcula la fuerza de salto
-            Vector2 jumpForce = new Vector2(wallJumpForce.x * dir, wallJumpForce.y);
+            force.x *= dir;
 
-            // Asegura que el jugador alcance la fuerza de salto deseada o mayor
             if (rb2d.velocity.y < 0)
-            {
-                jumpForce.y = Mathf.Max(jumpForce.y, -rb2d.velocity.y);
-            }
+                force.y -= rb2d.velocity.y;
 
-            // Aplica la fuerza como un impulso para garantizar que se aplique instantáneamente
-            rb2d.AddForce(jumpForce * forcevale, ForceMode2D.Impulse);
+            rb2d.AddForce(force * forcevale, ForceMode2D.Impulse);
         }
         
         public void JumpReleased()
@@ -96,7 +90,6 @@ namespace Jugador.NewWaterPlayer
         {
             if ((!isOnFloor && !isJumping))
             {
-                Debug.Log("jump if");
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
@@ -109,7 +102,6 @@ namespace Jugador.NewWaterPlayer
             }
             else
             {
-                Debug.Log("jump no if");
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
@@ -142,7 +134,6 @@ namespace Jugador.NewWaterPlayer
             else if (!isOnFloor)
             {
                 isOnAir = true;
-                OnAirCalculate();
             }
 
             if (isOnAir)
@@ -154,12 +145,6 @@ namespace Jugador.NewWaterPlayer
                     isJumping = false;
                 }
             }
-        }
-
-        private void OnAirCalculate()
-        {
-            // Lógica adicional si es necesaria para el cálculo en el aire
-            //Setear la caida aqui para que no sea superrapida
         }
 
         private bool CanJump()
