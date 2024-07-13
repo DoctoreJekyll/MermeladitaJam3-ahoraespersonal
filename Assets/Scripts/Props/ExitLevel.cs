@@ -10,9 +10,17 @@ public class ExitLevel : MonoBehaviour
 
     private void Update()
     {
-        if (uiPaper.GetTotalPapers() >= 3)
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("exit");
+            if (uiPaper.GetTotalPapers() >= 3)
+            {
+                Debug.Log("exit");
+            }
         }
     }
 }
