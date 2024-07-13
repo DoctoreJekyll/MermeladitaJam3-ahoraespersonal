@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitLevel : MonoBehaviour
 {
 
     [SerializeField] private UIPaper uiPaper;
+    [SerializeField] private String levelName;
 
     private void Update()
     {
@@ -17,10 +19,15 @@ public class ExitLevel : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (uiPaper.GetTotalPapers() >= 3)
+            if (uiPaper.GetTotalPapersPlayerHas() >= uiPaper.GetTotalPapersLevelsNeed())
             {
-                Debug.Log("exit");
+                LoadLevel();
             }
         }
+    }
+
+    private void LoadLevel()
+    {
+        SceneManager.LoadScene(levelName);
     }
 }

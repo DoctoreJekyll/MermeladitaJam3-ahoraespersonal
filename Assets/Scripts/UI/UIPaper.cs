@@ -28,8 +28,13 @@ public class UIPaper : MonoBehaviour
         paperTexts.text = totalPapers + " / " + allPapersInScene.Count;
     }
 
-    public int GetTotalPapers()
+    public int GetTotalPapersPlayerHas()
     {
         return totalPapers;
+    }
+
+    public int GetTotalPapersLevelsNeed()
+    {
+        return allPapersInScene.Count;
     }
 }
