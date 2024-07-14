@@ -12,9 +12,11 @@ public class Paper : MonoBehaviour
 
     private Tween myTween;
     private UIPaper uiPaper;
+    private AudioSource audioSource;
     
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         uiPaper = FindObjectOfType<UIPaper>();
         float targetPositionY = transform.position.y + endValue;
         myTween = transform.DOMoveY(targetPositionY, duration).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
@@ -26,7 +28,19 @@ public class Paper : MonoBehaviour
         {
             uiPaper.AddPaper();
             myTween.Kill();
-            Destroy(this.gameObject);
+            StartCoroutine(SoundMovida());
         }
+    }
+
+    private IEnumerator SoundMovida()
+    {
+        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.enabled = false;
+        Collider2D coll = GetComponent<Collider2D>();
+        coll.enabled = false;
+        audioSource.PlayOneShot(audioSource.clip);
+        yield return new WaitForSeconds(1.5f);
+        
+        Destroy(this.gameObject);
     }
 }
