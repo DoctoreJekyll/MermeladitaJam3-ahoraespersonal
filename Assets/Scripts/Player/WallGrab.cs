@@ -137,13 +137,13 @@ public class WallGrab : MonoBehaviour
     private Coroutine test;
     public void GrabInputPut()
     {
-        //FallFromGrab();
+        FallFromGrab();
         grab = true;
     }
 
     private void FallFromGrab()
     {
-        test = StartCoroutine(TimeCorroutine());
+        StartCoroutine(TimeCorroutine());
     }
 
     public void GranInputRelease()
@@ -151,9 +151,13 @@ public class WallGrab : MonoBehaviour
         grab = false;
     }
 
+    [Header("Time max to grab")]
+    [SerializeField] private float timeMaxGrab;
     IEnumerator TimeCorroutine()
     {
-        yield return new WaitForSeconds(3f);
+        Debug.Log("time grab");
+        yield return new WaitForSeconds(timeMaxGrab);
+        Debug.Log("time grab2");
         grab = false;
     }
 
