@@ -38,6 +38,8 @@ namespace Jugador.NewWaterPlayer
         private void Update()
         {
             ClampUpVelocity();
+            
+            Debug.Log(rb.velocity.y);
         }
 
         private void FixedUpdate()
@@ -113,7 +115,7 @@ namespace Jugador.NewWaterPlayer
 
         private void ClampUpVelocity()
         {
-            if (rb.velocity.y > fallMaxVelocity)
+            if (rb.velocity.y < fallMaxVelocity)
                 rb.velocity = new Vector2(rb.velocity.x, fallMaxVelocity);
         }
     }

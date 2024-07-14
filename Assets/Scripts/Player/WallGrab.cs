@@ -155,9 +155,7 @@ public class WallGrab : MonoBehaviour
     [SerializeField] private float timeMaxGrab;
     IEnumerator TimeCorroutine()
     {
-        Debug.Log("time grab");
         yield return new WaitForSeconds(timeMaxGrab);
-        Debug.Log("time grab2");
         grab = false;
     }
 
