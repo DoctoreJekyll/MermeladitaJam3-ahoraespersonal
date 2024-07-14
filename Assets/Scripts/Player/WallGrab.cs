@@ -77,7 +77,7 @@ public class WallGrab : MonoBehaviour
         bool currentLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRaidus, groundLayer);
 
         // Detectar cambio de estado en isOnRightWall
-        if (isOnRightWall && !currentRightWall)
+        if (isOnRightWall && !currentRightWall && flip.facingRight)
         {
             if (grab)
             {
@@ -86,7 +86,7 @@ public class WallGrab : MonoBehaviour
         }
 
         // Detectar cambio de estado en isOnLeftWall
-        if (isOnLeftWall && !currentLeftWall)
+        if (isOnLeftWall && !currentLeftWall && !flip.facingRight)
         {
             if (grab)
             {
