@@ -1,6 +1,5 @@
-using System;
+
 using System.Collections;
-using System.Collections.Generic;
 using Jugador.NewWaterPlayer;
 using UnityEngine;
 
@@ -34,14 +33,17 @@ public class Projectil : MonoBehaviour
     {
         Flip flip = FindObjectOfType<Flip>();
 
+        Vector2 forceDirection;
         if (flip.facingRight)
         {
-            rb2d.AddForce(new Vector2(-0.5f,0.5f) * 500);
+            forceDirection = new Vector2(-1, 1) * 400;  // Cambiado para mayor claridad
         }
         else
         {
-            rb2d.AddForce(new Vector2(0.5f,0.5f) * 500);
+            forceDirection = new Vector2(1, 1) * 400;  // Cambiado para mayor claridad
         }
+        
+        rb2d.AddForce(forceDirection);
     }
 
     private IEnumerator StartKnockUpCorroutine(Collider2D collider2D)
@@ -57,11 +59,12 @@ public class Projectil : MonoBehaviour
         
         rb2d.velocity = Vector2.zero;
         AddForceDirection(rb2d);
+        Debug.Log("COLLISION");
 
         Collider2D coll = GetComponent<Collider2D>();
         coll.enabled = false;
 
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.15f);
         
         wallGrab.enabled = true;
         improve.enabled = true;
