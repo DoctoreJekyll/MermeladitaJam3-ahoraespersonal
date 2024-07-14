@@ -243,6 +243,17 @@
                 },
                 {
                     "name": "",
+                    "id": "95f6f5b4-a327-4d1c-92b0-18fb1732883d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dc7a732e-67d3-4bd7-9173-7fc289005a87",
                     "path": "<Keyboard>/z",
                     "interactions": "",
@@ -267,6 +278,17 @@
                     "name": "",
                     "id": "1d56745b-c0be-44ed-b459-5188e0c80012",
                     "path": "<XInputController>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ffee744-efda-4694-b1ef-eb601a6f865c",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
