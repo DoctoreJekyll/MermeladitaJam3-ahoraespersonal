@@ -13,6 +13,9 @@ public class DeadManager : MonoBehaviour
     [SerializeField] private GameObject dead;
     [SerializeField] private Animator animator;
 
+    [SerializeField] private AudioSource asource;
+    [SerializeField] private AudioClip clip;
+
     private void OnEnable()
     {
         if (!Mathf.Approximately(Time.timeScale, 1))
@@ -24,6 +27,7 @@ public class DeadManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        asource = GetComponent<AudioSource>();
     }
 
     public void ODeath()
@@ -34,6 +38,7 @@ public class DeadManager : MonoBehaviour
     private IEnumerator RechargeLevel()
     {
         animator.Play("fadein");
+        asource.PlayOneShot(clip);
         GameObject player = FindObjectOfType<Move>().gameObject;
         Destroy(player);
         Instantiate(dead, player.transform.position, quaternion.identity);

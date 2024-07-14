@@ -5587,3 +5587,4 @@ MonoBehaviour:
   walk: {fileID: 8300000, guid: 4fa89293f1a3f5c468099b014f03fd4f, type: 3}
   jump: {fileID: 8300000, guid: 024d89e5df6974541825e91c1518660e, type: 3}
   dash: {fileID: 8300000, guid: 6f7894942879c764eb1cd6dbc2d20ed2, type: 3}
+  pick: {fileID: 8300000, guid: d03d30e6bf471444d9757dcd527acee0, type: 3}
