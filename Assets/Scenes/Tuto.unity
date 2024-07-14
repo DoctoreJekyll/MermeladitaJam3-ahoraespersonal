@@ -4404,7 +4404,8 @@ MonoBehaviour:
   setLaterLimitUpGravity: 9
   setRbDrag: 0.25
   maxTimeToJump: 0.35
-  fallMaxVelocity: -15
+  fallMaxVelocity: 16
+  fallingVelocity: -13
 --- !u!114 &1461188794
 MonoBehaviour:
   m_ObjectHideFlags: 0
