@@ -36,11 +36,11 @@ public class Projectil : MonoBehaviour
 
         if (flip.facingRight)
         {
-            rb2d.AddForce(new Vector2(-0.5f,0.5f) * 700);
+            rb2d.AddForce(new Vector2(-0.5f,0.5f) * 500);
         }
         else
         {
-            rb2d.AddForce(new Vector2(0.5f,0.5f) * 700);
+            rb2d.AddForce(new Vector2(0.5f,0.5f) * 500);
         }
     }
 
@@ -61,7 +61,7 @@ public class Projectil : MonoBehaviour
         Collider2D coll = GetComponent<Collider2D>();
         coll.enabled = false;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.35f);
         
         wallGrab.enabled = true;
         improve.enabled = true;
