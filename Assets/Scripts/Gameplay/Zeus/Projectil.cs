@@ -6,13 +6,27 @@ using UnityEngine;
 
 public class Projectil : MonoBehaviour
 {
-    
+
+    private Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        if (rb.velocity.y < -10)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -10);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             StartCoroutine(StartKnockUpCorroutine(other));
-            Destroy(this.gameObject);
         }
     }
 
@@ -22,11 +36,11 @@ public class Projectil : MonoBehaviour
 
         if (flip.facingRight)
         {
-            rb2d.AddForce(new Vector2(0.5f,0.5f) * 1000);
+            rb2d.AddForce(new Vector2(-0.5f,0.5f) * 700);
         }
         else
         {
-            rb2d.AddForce(new Vector2(-0.5f,0.5f) * 1000);
+            rb2d.AddForce(new Vector2(0.5f,0.5f) * 700);
         }
     }
 
@@ -35,17 +49,23 @@ public class Projectil : MonoBehaviour
         Rigidbody2D rb2d = collider2D.gameObject.GetComponent<Rigidbody2D>();
         ImproveJump improve = collider2D.gameObject.GetComponent<ImproveJump>();
         WallGrab wallGrab = collider2D.gameObject.GetComponent<WallGrab>();
+        PlayerJump playerJump = collider2D.gameObject.GetComponent<PlayerJump>();
         
         wallGrab.enabled = false;
         improve.enabled = false;
+        playerJump.enabled = false;
         
         rb2d.velocity = Vector2.zero;
         AddForceDirection(rb2d);
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         
         wallGrab.enabled = true;
         improve.enabled = true;
+        playerJump.enabled = true;
+        
+        this.gameObject.SetActive(false);
+        Destroy(this.gameObject, .5f);
 
     }
     

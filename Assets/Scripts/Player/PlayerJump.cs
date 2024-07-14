@@ -70,7 +70,6 @@ namespace Jugador.NewWaterPlayer
         {
             if (isOnFloor && (grab.isOnRightWall || grab.isOnLeftWall))
             {
-                Debug.Log("jump on wall");
                 JumpMethod();
             }
             else if (grab.isOnGrab)
