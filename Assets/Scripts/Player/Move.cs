@@ -1,9 +1,11 @@
+using Jugador.NewWaterPlayer;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Move : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private PlayerJump playerJump;
 
     [Header("Moves value")]
     [SerializeField] private float moveSpeed;
@@ -19,6 +21,7 @@ public class Move : MonoBehaviour
 
     private void Awake()
     {
+        playerJump = GetComponent<PlayerJump>();
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -31,6 +34,14 @@ public class Move : MonoBehaviour
     private void FixedUpdate()
     {
        Movement();
+       if ((input.InputXDirectionValue() > 0 || input.InputXDirectionValue() < 0) && playerJump.isOnFloor)
+       {
+           animator.Play("PlayerRun");
+       }
+       else if (playerJump.isOnFloor)
+       {
+           animator.Play("PlayerIdle");
+       }
     }
 
     private float TargetSpeed()

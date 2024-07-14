@@ -24,7 +24,7 @@ public class Dash : MonoBehaviour
 
     private void Start()
     {
-        animator.GetComponentsInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
     }
 

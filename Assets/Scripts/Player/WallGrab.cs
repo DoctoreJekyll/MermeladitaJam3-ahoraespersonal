@@ -38,7 +38,7 @@ public class WallGrab : MonoBehaviour
 
     private void Start()
     {
-        animator.GetComponentsInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
         test = StartCoroutine(TimeCorroutine());
         playerJump = GetComponent<PlayerJump>();
         flip = GetComponent<Flip>();
@@ -122,6 +122,7 @@ public class WallGrab : MonoBehaviour
     {
         if (onWall && grab)
         {
+            animator.Play("grab");
             rb2d.velocity = new Vector2(rb2d.velocity.x, direction.InputYDirectionValue() * speed);
             flip.enabled = false;
         }

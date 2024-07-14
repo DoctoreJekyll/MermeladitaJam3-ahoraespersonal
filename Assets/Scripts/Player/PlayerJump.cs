@@ -31,7 +31,7 @@ namespace Jugador.NewWaterPlayer
 
         private void Start()
         {
-            animator.GetComponentsInChildren<Animator>();
+            animator = GetComponentInChildren<Animator>();
             rb2d = GetComponent<Rigidbody2D>();
             dash = GetComponent<Dash>();
             grab = GetComponent<WallGrab>();
@@ -45,6 +45,16 @@ namespace Jugador.NewWaterPlayer
         {
             IsOnFloor();
             FallCheck();
+
+
+            if (rb2d.velocity.y > 0 && !isOnFloor && !grab.isOnGrab)
+            {
+                animator.Play("saltoUp");
+            }
+            else if (rb2d.velocity.y < 0 && !isOnFloor && !grab.isOnGrab)
+            {
+                animator.Play("saltodown");
+            }
         }
 
         private void IsOnFloor()
