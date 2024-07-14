@@ -12,17 +12,13 @@ public class Creater : MonoBehaviour
     private float timeToSpawn;
 
     Camera mainCamera;
-    private Vector3 topLeft;
-    private Vector3 topRight;
+    [SerializeField] private Transform topLeft;
+    SerializeField] private Transform topRight;
     void Start()
     {
         mainCamera = Camera.main; // Obtener la cámara principal
-                
-        topLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, mainCamera.nearClipPlane));
-        topRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.nearClipPlane));
-
-        xPosLeft = topLeft.x;
-        xPostRigth = topRight.x;
+        xPosLeft = topLeft.position.x;
+        xPostRigth = topRight.position.x;
     }
     
     private void InstantiateObject()
