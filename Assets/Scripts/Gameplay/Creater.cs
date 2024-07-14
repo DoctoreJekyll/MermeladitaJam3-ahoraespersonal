@@ -35,7 +35,6 @@ public class Creater : MonoBehaviour
         {
             InstantiateObject();
             timeToSpawn = 0;
-            Debug.Log("Projectil");
         }
     }
 }
