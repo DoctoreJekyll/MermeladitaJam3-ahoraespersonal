@@ -5,6 +5,7 @@ namespace Jugador.NewWaterPlayer
 {
     public class PlayerJump : MonoBehaviour
     {
+        [SerializeField] private GameObject shadow;
         private Rigidbody2D rb2d;
         private Dash dash;
 
@@ -16,6 +17,7 @@ namespace Jugador.NewWaterPlayer
         private bool isJumping;
         public bool isOnFloor;
         private bool canJump;
+        [SerializeField] private ParticleSystem dust;
 
         [Header("Fall stuffs")]
         public bool isOnAir;
@@ -39,6 +41,8 @@ namespace Jugador.NewWaterPlayer
         private void Update()
         {
             CoyoteTimeImprove();
+            
+            shadow.SetActive(isOnFloor);
         }
 
         private void FixedUpdate()
@@ -109,18 +113,21 @@ namespace Jugador.NewWaterPlayer
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
+                dust.Play();
             }
             else if (grab.isOnGrab)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
+                dust.Play();
             }
             else
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
+                dust.Play();
             }
         }
 

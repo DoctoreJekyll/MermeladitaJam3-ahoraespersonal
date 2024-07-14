@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ public class DeadManager : MonoBehaviour
 {
 
     public static DeadManager Instance;
+
+    [SerializeField] private GameObject dead;
 
     private void OnEnable()
     {
@@ -29,7 +32,9 @@ public class DeadManager : MonoBehaviour
     
     private IEnumerator RechargeLevel()
     {
-        Time.timeScale = 0;
+        GameObject player = FindObjectOfType<Move>().gameObject;
+        Destroy(player);
+        Instantiate(dead, player.transform.position, quaternion.identity);
         yield return new WaitForSecondsRealtime(0.75f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

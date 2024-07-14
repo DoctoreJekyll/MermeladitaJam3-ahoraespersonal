@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jugador.NewWaterPlayer;
 using UnityEngine;
 
 public class Flip : MonoBehaviour
@@ -8,9 +9,13 @@ public class Flip : MonoBehaviour
     public bool facingRight;
     private Transform characterTransform;
     [SerializeField] private InputDirection direction;
+    [SerializeField] private ParticleSystem dust;
+
+    private PlayerJump playerJump;
 
     void Start()
     {
+        playerJump = GetComponent<PlayerJump>();
         characterTransform = GetComponent<Transform>();
     }
 
@@ -30,6 +35,11 @@ public class Flip : MonoBehaviour
 
     void FlipFunction()
     {
+        if (playerJump.isOnFloor)
+        {
+            dust.Play();
+        }
+        
         facingRight = !facingRight;
         Vector3 scale = characterTransform.localScale;
         scale.x *= -1;

@@ -13,6 +13,7 @@ public class Dash : MonoBehaviour
     [SerializeField] private Transform pointToCheckFloor;
     [SerializeField] private Vector2 checkSize;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private ParticleSystem dust;
 
     [Header("Dash values")]
     [SerializeField] private float dashForce;
@@ -94,7 +95,8 @@ public class Dash : MonoBehaviour
     {
         Time.timeScale = 0;
         shake.TriggerShake();
-        yield return new WaitForSecondsRealtime(0.035f);
+        yield return new WaitForSecondsRealtime(0.04f);
+        dust.Play();
         Time.timeScale = 1;
     }
 
