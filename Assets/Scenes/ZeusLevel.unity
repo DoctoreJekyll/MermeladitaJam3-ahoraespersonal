@@ -820,6 +820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiPaper: {fileID: 881168934}
   levelName: Final
+  animator: {fileID: 2093340168}
 --- !u!61 &334858610
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8872,7 +8873,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1809031873}
   - component: {fileID: 1809031874}
-  - component: {fileID: 1809031875}
   m_Layer: 0
   m_Name: Exit
   m_TagString: Untagged
@@ -8941,20 +8941,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4711065, y: 1.8549716}
   m_EdgeRadius: 0
---- !u!114 &1809031875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809031872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35a40ce6de6454b4492a8b6595d57ef8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiPaper: {fileID: 881168934}
-  levelName: 
 --- !u!4 &1814257149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2069759020140226370, guid: a19dab69904a04d4d9590387a9f93c98, type: 3}

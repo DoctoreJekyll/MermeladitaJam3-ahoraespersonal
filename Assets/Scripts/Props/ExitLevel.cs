@@ -9,6 +9,7 @@ public class ExitLevel : MonoBehaviour
 
     [SerializeField] private UIPaper uiPaper;
     [SerializeField] private String levelName;
+    [SerializeField] private Animator animator;
 
     private void Update()
     {
@@ -21,13 +22,15 @@ public class ExitLevel : MonoBehaviour
         {
             if (uiPaper.GetTotalPapersPlayerHas() >= uiPaper.GetTotalPapersLevelsNeed())
             {
-                LoadLevel();
+                StartCoroutine(LoadLevel());
             }
         }
     }
 
-    private void LoadLevel()
+    private IEnumerator LoadLevel()
     {
+        animator.Play("fadein");
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(levelName);
     }
 }
