@@ -137,7 +137,7 @@ public class WallGrab : MonoBehaviour
     private Coroutine test;
     public void GrabInputPut()
     {
-        FallFromGrab();
+        //FallFromGrab();
         grab = true;
     }
 
