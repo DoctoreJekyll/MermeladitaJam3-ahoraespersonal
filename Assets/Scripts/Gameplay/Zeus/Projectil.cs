@@ -58,13 +58,15 @@ public class Projectil : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         AddForceDirection(rb2d);
 
+        Collider2D coll = GetComponent<Collider2D>();
+        coll.enabled = false;
+
         yield return new WaitForSeconds(0.5f);
         
         wallGrab.enabled = true;
         improve.enabled = true;
         playerJump.enabled = true;
         
-        this.gameObject.SetActive(false);
         Destroy(this.gameObject, .5f);
 
     }
