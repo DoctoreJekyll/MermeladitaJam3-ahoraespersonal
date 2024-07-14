@@ -51,13 +51,16 @@ namespace Jugador.NewWaterPlayer
 
         public void JumpPress()
         {
-            
-            if (grab.isOnGrab)
+            if (isOnFloor && (grab.isOnRightWall || grab.isOnLeftWall))
+            {
+                Debug.Log("jump on wall");
+                JumpMethod();
+            }
+            else if (grab.isOnGrab)
             {
                 WallJump();
             }
-            
-            if (CanJump())
+            else if (CanJump())
             {
                 JumpMethod();
             }
@@ -149,7 +152,7 @@ namespace Jugador.NewWaterPlayer
 
         private bool CanJump()
         {
-            return coyoteTime > 0f && !dash.isDashing && (GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush());
+            return coyoteTime > 0f && !dash.isDashing && (isOnFloor || grab.isOnGrab) && (GamepadButtonSouthIsPush() || KeyBoardButtonSpaceIsPush());
         }
 
         private void OnDrawGizmos()

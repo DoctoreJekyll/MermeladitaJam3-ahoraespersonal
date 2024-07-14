@@ -57,15 +57,12 @@ public class WallGrab : MonoBehaviour
     // Métodos que se llaman cuando los eventos se disparan
     private void OnExitRightWall()
     {
-        Debug.Log("Saliendo de la pared derecha");
-        // Aquí puedes agregar la lógica que deseas ejecutar
         rb2d.AddForce(Vector2.up * upForce);
         move.enabled = true;
     }
 
     private void OnExitLeftWall()
     {
-        // Aquí puedes agregar la lógica que deseas ejecutar
         rb2d.AddForce(Vector2.up * upForce);
         move.enabled = true;
     }
@@ -83,7 +80,6 @@ public class WallGrab : MonoBehaviour
             {
                 OnRightWallExit.Invoke();
             }
-            
         }
 
         // Detectar cambio de estado en isOnLeftWall
@@ -109,14 +105,13 @@ public class WallGrab : MonoBehaviour
         {
             improveJump.enabled = true;
         }
-        
+    
         Grab();
-        
+
         if (playerJump.isOnFloor)
         {
             StopCoroutine(test);
         }
-
     }
 
     public float speed;
@@ -170,11 +165,18 @@ public class WallGrab : MonoBehaviour
             rb2d.gravityScale = 0;
             isOnGrab = true;
         }
-        else
+        else if (!playerJump.isOnFloor) // Solo deshabilitar la gravedad y el movimiento si no está en el suelo
         {
             rb2d.gravityScale = actualGravityScale;
             isOnGrab = false;
             StartCoroutine(ReturnValuesCorroutine());
+        }
+        else
+        {
+            rb2d.gravityScale = actualGravityScale;
+            isOnGrab = false;
+            move.enabled = true;
+            improveJump.enabled = true;
         }
     }
 
@@ -187,7 +189,10 @@ public class WallGrab : MonoBehaviour
 
     private void WallSlide()
     {
-        rb2d.velocity = new Vector2(rb2d.velocity.x, -slideSpeed);
+        if (!playerJump.isOnFloor && rb2d.velocity.y < 0)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, -slideSpeed);
+        }
     }
 
     private void OnDrawGizmosSelected()

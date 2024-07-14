@@ -39,8 +39,6 @@ namespace Jugador.NewWaterPlayer
         {
             ClampUpVelocity();
             ClampDownVelocity();
-            
-            Debug.Log(rb.velocity.y);
         }
 
         private void FixedUpdate()
