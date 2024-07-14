@@ -11,6 +11,7 @@ public class DeadManager : MonoBehaviour
     public static DeadManager Instance;
 
     [SerializeField] private GameObject dead;
+    [SerializeField] private Animator animator;
 
     private void OnEnable()
     {
@@ -32,6 +33,7 @@ public class DeadManager : MonoBehaviour
     
     private IEnumerator RechargeLevel()
     {
+        animator.Play("fadein");
         GameObject player = FindObjectOfType<Move>().gameObject;
         Destroy(player);
         Instantiate(dead, player.transform.position, quaternion.identity);
