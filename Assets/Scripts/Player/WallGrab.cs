@@ -73,11 +73,11 @@ public class WallGrab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool currentRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rigthOffset, collisionRaidus, groundLayer);
-        bool currentLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRaidus, groundLayer);
+        bool currentRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rigthOffset, collisionRaidus, groundLayer) && flip.facingRight;
+        bool currentLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRaidus, groundLayer) && !flip.facingRight;
 
         // Detectar cambio de estado en isOnRightWall
-        if (isOnRightWall && !currentRightWall && flip.facingRight)
+        if (isOnRightWall && !currentRightWall )
         {
             if (grab)
             {
@@ -86,7 +86,7 @@ public class WallGrab : MonoBehaviour
         }
 
         // Detectar cambio de estado en isOnLeftWall
-        if (isOnLeftWall && !currentLeftWall && !flip.facingRight)
+        if (isOnLeftWall && !currentLeftWall)
         {
             if (grab)
             {
