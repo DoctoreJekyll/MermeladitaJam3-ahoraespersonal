@@ -26,9 +26,12 @@ namespace Jugador.NewWaterPlayer
         [SerializeField] private float coyoteTime;
 
         [Header("Grab Component")] private WallGrab grab;
+        
+        [Header("Animator")] [SerializeField] private Animator animator;
 
         private void Start()
         {
+            animator.GetComponentsInChildren<Animator>();
             rb2d = GetComponent<Rigidbody2D>();
             dash = GetComponent<Dash>();
             grab = GetComponent<WallGrab>();

@@ -33,9 +33,12 @@ public class WallGrab : MonoBehaviour
     // Eventos personalizados
     public UnityEvent OnRightWallExit;
     public UnityEvent OnLeftWallExit;
+    
+    [Header("Animator")] [SerializeField] private Animator animator;
 
     private void Start()
     {
+        animator.GetComponentsInChildren<Animator>();
         test = StartCoroutine(TimeCorroutine());
         playerJump = GetComponent<PlayerJump>();
         flip = GetComponent<Flip>();

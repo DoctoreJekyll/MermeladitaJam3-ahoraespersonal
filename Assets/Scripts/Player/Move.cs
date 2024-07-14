@@ -15,8 +15,11 @@ public class Move : MonoBehaviour
     [SerializeField] private InputDirection input;
     private float moveInput;
 
+    [Header("Animator")] [SerializeField] private Animator animator;
+
     private void Awake()
     {
+        animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 

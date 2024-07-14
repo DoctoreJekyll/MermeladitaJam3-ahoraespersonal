@@ -19,9 +19,12 @@ public class Dash : MonoBehaviour
     private bool canDash;
     public bool isDashing; // Ahora público para que PlayerJump lo pueda acceder
     private float dashWindow;
+    [Header("Animator")] [SerializeField] private Animator animator;
+    
 
     private void Start()
     {
+        animator.GetComponentsInChildren<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
     }
 
