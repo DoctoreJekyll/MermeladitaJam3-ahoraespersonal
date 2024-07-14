@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class Projectil : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D other)
+    
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             Rigidbody2D rb2d = other.gameObject.GetComponent<Rigidbody2D>();
             rb2d.velocity = Vector2.zero;
             AddForceDirection(rb2d);
+            
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
     }
 
     private void AddForceDirection(Rigidbody2D rb2d)

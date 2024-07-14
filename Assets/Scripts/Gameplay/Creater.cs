@@ -13,7 +13,7 @@ public class Creater : MonoBehaviour
 
     Camera mainCamera;
     [SerializeField] private Transform topLeft;
-    SerializeField] private Transform topRight;
+    [SerializeField] private Transform topRight;
     void Start()
     {
         mainCamera = Camera.main; // Obtener la cámara principal
@@ -23,7 +23,7 @@ public class Creater : MonoBehaviour
     
     private void InstantiateObject()
     {
-        Vector3 randomPos = new Vector3(Random.Range(xPosLeft, xPostRigth), topLeft.y + 1, 0);
+        Vector3 randomPos = new Vector3(Random.Range(xPosLeft, xPostRigth), topLeft.position.y + 1, 0);
         GameObject obj = Instantiate(objToCreate, randomPos, quaternion.identity);
     }
 
