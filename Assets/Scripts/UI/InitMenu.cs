@@ -9,6 +9,12 @@ public class InitMenu : MonoBehaviour
 
     public void StartGame()
     {
+        StartCoroutine(StartGameCorroutine());
+    }
+
+    private IEnumerator StartGameCorroutine()
+    {
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("Tuto");
     }
 
