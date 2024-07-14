@@ -30,6 +30,7 @@ namespace Jugador.NewWaterPlayer
         [Header("Grab Component")] private WallGrab grab;
         
         [Header("Animator")] [SerializeField] private Animator animator;
+        [SerializeField] private PlayerSounds sounds;
 
         private void Start()
         {
@@ -113,6 +114,7 @@ namespace Jugador.NewWaterPlayer
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
                 dust.Play();
+                sounds.JumpEffect();
             }
             else if (grab.isOnGrab)
             {
@@ -120,6 +122,7 @@ namespace Jugador.NewWaterPlayer
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
                 dust.Play();
+                sounds.JumpEffect();
             }
             else
             {
@@ -127,6 +130,7 @@ namespace Jugador.NewWaterPlayer
                 rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
                 dust.Play();
+                sounds.JumpEffect();
             }
         }
 
