@@ -1823,14 +1823,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Jose A Rodriguez @Joseajierro - Programacion
-
-
-    Valentina Ortiz @nxbody
-    - Arte
-
-
-    Ana V @koribeart - Arte'
+  m_text: "Jose A Rodriguez @Joseajierro - Programaci\xF3n\n\nValentina Ortiz @x.nxbody.x
+    - Arte\n\nAna V @kori_bear_art - Arte"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 01708f2c302a14946af115438cc774fb, type: 2}
   m_sharedMaterial: {fileID: 5337220099637014663, guid: 01708f2c302a14946af115438cc774fb, type: 2}
