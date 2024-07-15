@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Jugador.NewWaterPlayer;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -48,6 +49,8 @@ public class PauseMenu : MonoBehaviour
     {
         inputs.action.performed -= MenuAction;
         inputs.action.canceled -= MenuAction;
+
+        Time.timeScale = 1;
     }
 
     private void MenuAction(InputAction.CallbackContext callbackContext)

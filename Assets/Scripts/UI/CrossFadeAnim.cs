@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CrossFadeAnim : MonoBehaviour
 {
+    private void OnEnable()
+    {
+        Time.timeScale = 1;
+    }
 
     [SerializeField] private Animator animator;
     
