@@ -506,8 +506,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.9796143, y: 67.93468}
-  m_SizeDelta: {x: -51.249, y: -274.1227}
+  m_AnchoredPosition: {x: -2.9796143, y: 109.18201}
+  m_SizeDelta: {x: -51.249, y: -356.6174}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &167308908
 MonoBehaviour:
@@ -561,12 +561,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textComp: {fileID: 1625563971}
   lines:
-  - Amo a ve klk
-  - klkklklklkl
-  - esto esta facil
-  - aeaea
-  - amono
-  txtSpeed: 0.1
+  - "El final del camino, quedan los \xFAltimos dioses, el ultimo tir\xF3n, d\xEDas
+    de subida y escalada para llegar a este punto..."
+  - "Todos los cultivos se han echado a perder, mi pueblo est\xE1 pasando hambre
+    y penurias, es ahora o nunca... Tengo que recoger todos su pergaminos para que
+    me oigan..."
+  - "Superar\xE9 los retos de Hermes en el tiempo que me proponga, no me achicar\xE9.."
+  - "Pasar\xE9 los aposentos de Poseidon y no dejar\xE9 que sus aguas me ahoguen
+    ni me arrastren..."
+  - "Alcanzar\xE9 la cima de Zeus y esquivar\xE9 todos sus rayos y ataques, este
+    es mi camino, puedo terminarlo..."
+  txtSpeed: 0.05
 --- !u!95 &167559597 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5142645418833055856, guid: b2301bb91d60a2241874acb81df83f31, type: 3}
@@ -2855,7 +2860,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09817171, y: 0.75358, z: -10}
+  m_LocalPosition: {x: -0.1056304, y: 0.75356996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9783,7 +9788,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 01708f2c302a14946af115438cc774fb, type: 2}
   m_sharedMaterial: {fileID: 5337220099637014663, guid: 01708f2c302a14946af115438cc774fb, type: 2}
