@@ -264,7 +264,7 @@
                 {
                     "name": "",
                     "id": "dc7a732e-67d3-4bd7-9173-7fc289005a87",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -298,6 +298,17 @@
                     "name": "",
                     "id": "0ffee744-efda-4694-b1ef-eb601a6f865c",
                     "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d671cf2d-99c1-4c2f-b831-4e06cedb3d03",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
