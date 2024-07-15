@@ -89,6 +89,11 @@ public class Dash : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         Vector2 dir = direction;
 
+        if (dir == Vector2.zero)
+        {
+            dir = Vector2.right;
+        }
+
         rb2d.velocity += dir.normalized * dashForce;
     }
 
